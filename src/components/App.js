@@ -8,9 +8,7 @@ function App() {
       <IonReactRouter>
         <IonSplitPane contentId="main">
           <IonRouterOutlet id="main">
-            <Route path="/login" />
-            <Route path=/>
-            <Route />
+            <Route path="/login" component={} />
           </IonRouterOutlet>
         </IonSplitPane>
       </IonReactRouter>

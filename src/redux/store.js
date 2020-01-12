@@ -5,7 +5,7 @@ import { rootReducer } from "./reducers";
 import { verifyAuth } from "./actions/auth";
 
 export const configureStore = () => {
- const store = createStore(rootReducer, applyMiddleware(Thunk));
- store.dispatch(verifyAuth());
- return store;
-}
+  const store = createStore(rootReducer, applyMiddleware(Thunk));
+  store.dispatch(verifyAuth());
+  return store;
+};

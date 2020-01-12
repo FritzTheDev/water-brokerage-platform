@@ -40,7 +40,7 @@ const requestVerification = () => {
   };
 };
 
-const verificationSuccess = () => {
+const verificationSuccess = token => {
   return {
     type: LOGOUT
   };
@@ -69,9 +69,12 @@ export const logoutUser = () => dispatch => {
 
 export const verifyAuth = () => dispatch => {
   dispatch(requestVerification());
-  Axios.get("https://staging-wbp-backend.herokuapp.com/api/v1/listings/")
-    .then(res => {
-      dispatch(verificationSuccess());
+  const token = localStorage.getItem("token");
+  Axios.get("https://staging-wbp-backend.herokuapp.com/api/v1/listings/", {
+    headers: { Authorization: token }
+  })
+    .then(() => {
+      dispatch(verificationSuccess(token));
     })
     .catch(() => {
       localStorage.removeItem("token");

@@ -16,6 +16,11 @@ export const authReducer = (state = initialState, action) => {
     case actions.LOGOUT:
       return Object.assign({}, state, { token: null, authenticated: false, error: null });
 
+    case actions.VERIFY_REQUEST:
+      return Object.assign({}, state, { loggingIn: true });
+
+    case actions.VERIFY_SUCCESS:
+      return Object.assign({}, state, { loggingIn: false, token: action.token, authenticated: true, error: null });
     default:
       return state;
   }

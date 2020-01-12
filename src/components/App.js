@@ -3,7 +3,7 @@ import { IonApp, IonSplitPane, IonRouterOutlet } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import { AuthContext } from "../data/AuthContext";
 
-function App() {
+export const App = () => {
   return (
     <AuthContext.Provider>
       <IonApp>
@@ -18,5 +18,3 @@ function App() {
     </AuthContext.Provider>
   );
 }
-
-export default App;

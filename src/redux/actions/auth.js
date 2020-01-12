@@ -15,7 +15,7 @@ const requestLogin = () => {
   };
 };
 
-const loginSuccess = (token) => {
+const loginSuccess = token => {
   return {
     type: LOGIN_SUCCESS,
     token
@@ -34,21 +34,46 @@ const logout = () => {
   };
 };
 
+const requestVerification = () => {
+  return {
+    type: VERIFY_REQUEST
+  };
+};
+
+const verificationSuccess = () => {
+  return {
+    type: LOGOUT
+  };
+};
+
 export const loginUser = (email, password) => dispatch => {
   dispatch(requestLogin());
-  Axios.post(
-    "https://staging-wbp-backend.herokuapp.com/api/v1/token/",
-    { email, password }
-  ).then(response => {
-    const token = response.data.access
-    dispatch(loginSuccess(token));
-    localStorage.setItem('token', token);
-  }).catch(err => {
-    dispatch(loginError());
-  });
+  Axios.post("https://staging-wbp-backend.herokuapp.com/api/v1/token/", {
+    email,
+    password
+  })
+    .then(response => {
+      const token = response.data.access;
+      dispatch(loginSuccess(token));
+      localStorage.setItem("token", token);
+    })
+    .catch(err => {
+      dispatch(loginError());
+    });
 };
 
 export const logoutUser = () => dispatch => {
-  localStorage.removeItem('token');
+  localStorage.removeItem("token");
   dispatch(logout());
-}
+};
+
+export const verifyAuth = () => dispatch => {
+  dispatch(requestVerification());
+  Axios.get("https://staging-wbp-backend.herokuapp.com/api/v1/listings/")
+    .then(res => {
+      dispatch(verificationSuccess());
+    })
+    .catch(() => {
+      localStorage.removeItem("token");
+    });
+};

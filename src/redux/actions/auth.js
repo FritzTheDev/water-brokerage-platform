@@ -1,3 +1,5 @@
+import Axios from "axios";
+
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
@@ -12,47 +14,44 @@ export const VERIFY_SUCCESS = "VERIFY_SUCCESS";
 const requestLogin = () => {
   return {
     type: LOGIN_REQUEST
-  }
-}
+  };
+};
 
-const loginSuccess = () => {
+const loginSuccess = (token) => {
   return {
-    type: LOGIN_SUCCESS
-  }
-}
+    type: LOGIN_SUCCESS,
+    token
+  };
+};
 
 const loginError = () => {
   return {
     type: LOGIN_FAILURE
-  }
-}
+  };
+};
 
-const requestLogout = () => {
+const logout = () => {
   return {
     type: LOGOUT_REQUEST
-  }
-}
+  };
+};
 
-const logoutSuccess = () => {
-  return {
-    type: LOGOUT_SUCCESS
-  }
-}
+export const loginUser = (email, password) => dispatch => {
+  dispatch(requestLogin());
+  Axios.post(
+    "https://staging-wbp-backend.herokuapp.com/api/v1/token/",
+    { email, password }
+  ).then(response => {
+    const token = response.data.access
+    dispatch(loginSuccess(token));
+    localStorage.setItem('token', token);
+  }).catch(err => {
+    console.log(err.message);
+    dispatch(loginError());
+  });
+};
 
-const logoutFailure = () => {
-  return {
-    type: LOGOUT_FAILURE
-  }
-}
-
-const requestVerify = () => {
-  return {
-    type: VERIFY_REQUEST
-  }
-}
-
-const verifySuccess = () => {
-  return {
-    type: VERIFY_SUCCESS
-  }
+export const logoutUser = () => dispatch => {
+  localStorage.removeItem('token');
+  dispatch(logout());
 }

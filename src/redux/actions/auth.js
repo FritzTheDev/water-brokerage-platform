@@ -42,7 +42,8 @@ const requestVerification = () => {
 
 const verificationSuccess = token => {
   return {
-    type: LOGOUT
+    type: LOGOUT,
+    token
   };
 };
 
@@ -70,13 +71,14 @@ export const logoutUser = () => dispatch => {
 export const verifyAuth = () => dispatch => {
   dispatch(requestVerification());
   const token = localStorage.getItem("token");
+  console.log(token);
   Axios.get("https://staging-wbp-backend.herokuapp.com/api/v1/listings/", {
-    headers: { Authorization: token }
+    headers: { Authorization: 'Bearer ' + token }
   })
     .then(() => {
       dispatch(verificationSuccess(token));
     })
-    .catch(() => {
-      localStorage.removeItem("token");
-    });
+    // .catch(() => {
+    //   localStorage.removeItem("token");
+    // });
 };

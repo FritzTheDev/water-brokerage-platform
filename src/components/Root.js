@@ -3,7 +3,7 @@ import { IonApp } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import { Provider } from "react-redux";
 
-import { App } from "./App";
+import App from "./App";
 import { configureStore } from "../redux/store";
 
 const store = configureStore();

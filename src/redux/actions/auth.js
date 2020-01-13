@@ -8,6 +8,7 @@ export const LOGOUT = "LOGOUT";
 
 export const VERIFY_REQUEST = "VERIFY_REQUEST";
 export const VERIFY_SUCCESS = "VERIFY_SUCCESS";
+export const VERIFY_FAILURE = "VERIFY_FAILURE";
 
 const requestLogin = () => {
   return {
@@ -47,6 +48,12 @@ const verificationSuccess = token => {
   };
 };
 
+const verificationFailure = () => {
+  return {
+    type: VERIFY_FAILURE
+  }
+}
+
 export const loginUser = (email, password) => dispatch => {
   dispatch(requestLogin());
   Axios.post("https://staging-wbp-backend.herokuapp.com/api/v1/token/", {
@@ -78,7 +85,7 @@ export const verifyAuth = () => dispatch => {
     .then(() => {
       dispatch(verificationSuccess(token));
     })
-    // .catch(() => {
-    //   localStorage.removeItem("token");
-    // });
+    .catch(() => {
+      dispatch(verificationFailure())
+    });
 };

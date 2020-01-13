@@ -21,6 +21,10 @@ export const authReducer = (state = initialState, action) => {
 
     case actions.VERIFY_SUCCESS:
       return Object.assign({}, state, { isVerifying: false, token: action.token, isAuthenticated: true, error: null });
+
+    case actions.VERIFY_FAILURE:
+      return Object.assign({}, state, { isVerifying: false, token: null, isAuthenticated: false, error: null });
+      
     default:
       return state;
   }

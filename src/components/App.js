@@ -2,6 +2,7 @@ import React from "react";
 import { IonSplitPane, IonRouterOutlet } from "@ionic/react";
 import { PrivateRoute } from "./PrivateRoute";
 import { connect } from "react-redux";
+import { ListingsPage } from "../pages/Listings";
 
 const App = ({ isAuthenticated, isVerifying }) => {
   return (
@@ -11,7 +12,7 @@ const App = ({ isAuthenticated, isVerifying }) => {
           isAuthenticated={isAuthenticated}
           isVerifying={isVerifying}
           path="/listings"
-          component={}
+          component={ListingsPage}
         />
       </IonRouterOutlet>
     </IonSplitPane>

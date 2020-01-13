@@ -42,7 +42,7 @@ const requestVerification = () => {
 
 const verificationSuccess = token => {
   return {
-    type: LOGOUT,
+    type: VERIFY_SUCCESS,
     token
   };
 };

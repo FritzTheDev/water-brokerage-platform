@@ -4,7 +4,7 @@ import { PrivateRoute } from "./PrivateRoute";
 import { connect } from "react-redux";
 import { ListingsPage } from "../pages/Listings";
 import { LoginPage } from "../pages/Login";
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 
 const App = ({ isAuthenticated, isVerifying }) => {
   return (
@@ -17,6 +17,7 @@ const App = ({ isAuthenticated, isVerifying }) => {
           path="/listings"
           component={ListingsPage}
         />
+        <Route path="/" exact render={() => <Redirect to="/listings" />} />
       </IonRouterOutlet>
     </IonSplitPane>
   );

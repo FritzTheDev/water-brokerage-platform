@@ -1,20 +1,28 @@
 import React from "react";
-import { IonApp, IonSplitPane, IonRouterOutlet } from "@ionic/react";
-import { IonReactRouter } from "@ionic/react-router";
-import { AuthContext } from "../data/AuthContext";
+import { IonSplitPane, IonRouterOutlet } from "@ionic/react";
+import { PrivateRoute } from "./PrivateRoute";
+import { connect } from "react-redux";
 
-export const App = () => {
+const App = ({ isAuthenticated, isVerifying }) => {
   return (
-    <AuthContext.Provider>
-      <IonApp>
-        <IonReactRouter>
-          <IonSplitPane contentId="main">
-            <IonRouterOutlet id="main">
-              <Route path="/login" component={} />
-            </IonRouterOutlet>
-          </IonSplitPane>
-        </IonReactRouter>
-      </IonApp>
-    </AuthContext.Provider>
+    <IonSplitPane contentId="main">
+      <IonRouterOutlet id="main">
+        <PrivateRoute
+          isAuthenticated={isAuthenticated}
+          isVerifying={isVerifying}
+          path="/listings"
+          component={}
+        />
+      </IonRouterOutlet>
+    </IonSplitPane>
   );
-}
+};
+
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.isAuthenticated,
+    isVerifying: state.auth.isVerifying
+  };
+};
+
+export default connect(mapStateToProps)(App);

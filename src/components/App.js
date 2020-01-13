@@ -3,6 +3,7 @@ import { IonSplitPane, IonRouterOutlet } from "@ionic/react";
 import { PrivateRoute } from "./PrivateRoute";
 import { connect } from "react-redux";
 import { ListingsPage } from "../pages/Listings";
+import { LoginPage } from "../pages/Login";
 import { Route } from "react-router-dom";
 
 const App = ({ isAuthenticated, isVerifying }) => {

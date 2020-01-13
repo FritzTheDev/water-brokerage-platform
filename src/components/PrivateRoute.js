@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
-const ProtectedRoute = ({
+export const PrivateRoute = ({
   component: Component,
   isAuthenticated,
   isVerifying,
@@ -24,4 +24,3 @@ const ProtectedRoute = ({
     }
   />
 );
-export default ProtectedRoute;

@@ -78,7 +78,6 @@ export const logoutUser = () => dispatch => {
 export const verifyAuth = () => dispatch => {
   dispatch(requestVerification());
   const token = localStorage.getItem("token");
-  console.log(token);
   Axios.get("https://staging-wbp-backend.herokuapp.com/api/v1/listings/", {
     headers: { Authorization: 'Bearer ' + token }
   })
